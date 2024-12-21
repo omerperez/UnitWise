@@ -16,7 +16,11 @@ const iconButtonVariants = cva("", {
       lg: "size-10",
     },
     border: {
-      true: "rounded-full hover:bg-slate-600 p-0.5",
+      true: "border-slate-600 hover:border-2",
+      false: "",
+    },
+    active: {
+      true: "border-slate-600 border-2",
       false: "",
     },
   },
@@ -37,6 +41,7 @@ const iconSizeOptions: Record<IconButtonVariants["size"], number> = {
 type IconButtonProps = {
   icon: IconType;
   onClick: (event: MouseEvent<HTMLElement>) => void;
+  active?: boolean;
 } & IconButtonVariants;
 
 export const IconButton = ({
@@ -45,28 +50,30 @@ export const IconButton = ({
   variant,
   size,
   border,
+  active,
 }: IconButtonProps) => {
   const iconSize = iconSizeOptions[size ?? "md"];
 
   return (
-    <div className={iconButtonVariants({ border })}>
-      <Button
-        onClick={onClick}
-        variant={variant ?? "primary"}
-        size={size ?? "md"}
-        className={twJoin(
-          "rounded-full flex items-center justify-center",
-          iconButtonVariants({ size })
-        )}
-      >
-        <Icon
-          className={iconButtonVariants({ variant })}
-          sx={{
-            width: iconSize,
-            height: iconSize,
-          }}
-        />
-      </Button>
-    </div>
+    <Button
+      onClick={onClick}
+      variant={variant ?? "primary"}
+      size={size ?? "md"}
+      className={twJoin(
+        "rounded-full flex items-center justify-center",
+        iconButtonVariants({ size, border, active }),
+        variant === "primary"
+          ? "bg-navigation-icon-active hover:bg-navigation-top-icon-active"
+          : undefined
+      )}
+    >
+      <Icon
+        className={iconButtonVariants({ variant })}
+        sx={{
+          width: iconSize,
+          height: iconSize,
+        }}
+      />
+    </Button>
   );
 };

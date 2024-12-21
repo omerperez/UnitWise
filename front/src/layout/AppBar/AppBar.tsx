@@ -13,13 +13,13 @@ export const AppBar = () => {
       }}
     >
       <Toolbar
-        className="bg-[#1A1A1E] h-12"
+        className="bg-[#1A1A1E] h-12 items-center"
         sx={{
           "@media (min-width: 0px)": { padding: "0 8px" },
         }}
         variant="dense"
       >
-        <div className="flex items-center justify-between w-full">
+        <div className="flex items-center justify-between w-full pr-4">
           <div className="flex items-center gap-5">
             <Link
               className="flex h-full w-12 shrink-0 justify-center"
