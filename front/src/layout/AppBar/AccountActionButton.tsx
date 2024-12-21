@@ -1,15 +1,9 @@
-import { PersonOutlineOutlined } from "@mui/icons-material";
-import Logout from "@mui/icons-material/Logout";
-import PersonAdd from "@mui/icons-material/PersonAdd";
-import Settings from "@mui/icons-material/Settings";
-import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import { Logout, PersonOutlineOutlined } from "@mui/icons-material";
+import { Menu, MenuItem } from "@mui/material";
 import { Fragment, MouseEvent, useState } from "react";
 import { Tooltip } from "../../components/ui";
 import { IconButton } from "../../components/ui/IconButton";
+
 export const AccountActionButton = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -25,9 +19,11 @@ export const AccountActionButton = () => {
       <Tooltip title="Omer Perez" placement="bottom">
         <IconButton
           onClick={handleClick}
-          size="sm"
+          size="md"
           icon={PersonOutlineOutlined}
           variant="primary"
+          border
+          active={open}
         />
       </Tooltip>
       <Menu
@@ -38,59 +34,27 @@ export const AccountActionButton = () => {
         onClick={handleClose}
         slotProps={{
           paper: {
-            elevation: 0,
-            sx: {
-              overflow: "visible",
-              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-              mt: 1.5,
-              "& .MuiAvatar-root": {
-                width: 32,
-                height: 32,
-                ml: -0.5,
-                mr: 1,
-              },
-              "&::before": {
-                content: '""',
-                display: "block",
-                position: "absolute",
-                top: 0,
-                right: 14,
-                width: 10,
-                height: 10,
-                bgcolor: "background.paper",
-                transform: "translateY(-50%) rotate(45deg)",
-                zIndex: 0,
-              },
+            className: "mt-2 p-1",
+            style: {
+              borderRadius: 8,
+              boxShadow: "0px 2px 12px 6px rgba(9, 30, 66, 0.07)",
             },
           },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
+        <MenuItem
+          disabled
+          className="gap-2 items-center !text-sm"
+          onClick={handleClose}
+        >
+          <PersonOutlineOutlined sx={{ width: 18, height: 18 }} />
+          <div>{`Profile (Coming soon)`}</div>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Avatar /> My account
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
+        <MenuItem onClick={handleClose} className="gap-2 items-center !text-sm">
+          <Logout sx={{ width: 18, height: 18 }} />
+          <div>Log out</div>
         </MenuItem>
       </Menu>
     </Fragment>
